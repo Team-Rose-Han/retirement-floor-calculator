@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Your Safe Retirement Floor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="styles.css?v=1">
+</head>
+<body>
+
+<div id="gate" class="wrap gate" hidden>
+  <form class="box" id="gateform">
+    <div class="brandline">
+      <img class="logo" src="logo.png" alt="30 Minute Money" width="638" height="240">
+      <span class="divider" aria-hidden="true"></span>
+      <h1 class="h-display" id="gate-title">Your Safe Retirement Floor</h1>
+    </div>
+    <p class="lede" id="gate-lede">This tool is for members. Enter the access code from the community page to continue.</p>
+    <label class="field-label" for="code">Access code</label>
+    <div class="textrow"><input id="code" type="text" autocomplete="off" autocapitalize="characters" placeholder="Enter code"><button class="btn" type="submit">Unlock</button></div>
+    <p class="err" id="gateerr" aria-live="polite"></p>
+  </form>
+</div>
+
+<main id="app" class="wrap" hidden>
+  <header class="intro">
+    <div class="brandline">
+      <img class="logo" src="logo.png" alt="30 Minute Money" width="638" height="240">
+      <span class="divider" aria-hidden="true"></span>
+      <h1 class="h-display" id="tool-title">Your Safe Retirement Floor</h1>
+    </div>
+    <p class="eyebrow" id="eyebrow">Week 8</p>
+    <p id="tagline">This tool finds the minimum that your Money Flywheel needs to invest for retirement every month so that Future You will be covered no matter what.</p>
+    <ul id="bullets">
+      <li><b>Above the floor</b> → everything extra is eligible to put into the Spending, Upcoming, or Dream Fund guilt-free, hence “floor-then-dreams”</li>
+      <li><b>Below the floor</b> → hitting this becomes your next Financial Goal after getting 1 month ahead on bills, paying off credit card debt, maxing out 401(k) match, and saving up a 6-month emergency fund</li>
+    </ul>
+  </header>
+
+  <section class="card" aria-labelledby="inputs-h">
+    <h2 id="inputs-h">Your numbers</h2>
+    <form class="fields" id="form" autocomplete="off" novalidate>
+      <div class="field">
+        <label for="age">Your age</label>
+        <input id="age" type="number" inputmode="numeric" min="18" max="74" placeholder="e.g. 34">
+        <p class="err" id="age-err" hidden></p>
+      </div>
+
+      <div class="field">
+        <label for="saved">What you've already saved for retirement</label>
+        <div class="money"><input id="saved" type="text" inputmode="numeric" placeholder="0"></div>
+        <p class="help">Add up everything in retirement accounts: 401(k)s, IRAs, etc. One combined number is fine.</p>
+      </div>
+
+      <div class="field">
+        <label for="spend">What your retirement will cost <span class="suffix">/ month</span></label>
+        <div class="money"><input id="spend" type="text" inputmode="numeric" placeholder="0"></div>
+        <p class="help">In today’s dollars. A good estimate: add up your current BILLS + SPENDING. Consider that most people spend less in retirement than they did before retirement (mortgage paid off, kids out of the house, no commute, etc.)</p>
+      </div>
+
+      <div class="field">
+        <div class="slider-head">
+          <label for="retire">When you want retirement to start</label>
+          <div class="slider-val"><span id="retire-val">67</span><small>age</small></div>
+        </div>
+        <input id="retire" type="range" min="55" max="75" step="1" value="67" aria-describedby="retire-help">
+        <div class="range-ends"><span id="retire-min">55</span><span>75</span></div>
+        <p class="help" id="retire-help">Drag it. Watch your floor change.</p>
+      </div>
+
+      <div class="field">
+        <label for="contrib">What you're putting in monthly right now <span class="suffix">/ month</span></label>
+        <div class="money"><input id="contrib" type="text" inputmode="numeric" placeholder="0"></div>
+        <p class="help">Include your 401(k) employer match, contributions to IRAs and any other retirement accounts.</p>
+      </div>
+
+      <div class="field">
+        <label for="ss">Monthly Social Security or pension you expect <span class="suffix">/ month</span></label>
+        <div class="money"><input id="ss" type="text" inputmode="numeric" value="2,000"></div>
+        <p class="help">Prefilled near the 2026 US average retired-worker benefit (about $2,089/month per SSA). Swap in your real number from <a href="https://www.ssa.gov" target="_blank" rel="noopener">ssa.gov</a>. If you have annuity income or VA disability, you can include that as well.</p>
+      </div>
+    </form>
+  </section>
+
+  <section class="result" id="result" aria-live="polite">
+    <div id="result-empty">
+      <p class="lead">Your floor</p>
+      <p class="empty">Enter your age and what your retirement will cost per month. Your floor shows up here and moves as you type.</p>
+    </div>
+
+    <div id="result-body" hidden>
+      <p class="lead">Your floor is</p>
+      <p class="floor-line"><span class="floor-num" id="floor-num">$0</span><span class="floor-per">/month.</span></p>
+      <p class="putting">You're putting in <b id="putting">$0</b>.</p>
+    </div>
+
+    <div class="state above" id="state-above" hidden>
+      <p class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M8 12.5l2.6 2.6L16 9.5"></path></svg><span id="above-title">Future You is covered.</span></p>
+      <p id="above-line">Everything above your floor is dream money.</p>
+      <p class="big">Dream money: <span id="dream">$0</span><small>/month</small></p>
+    </div>
+
+    <div class="state funded" id="state-funded" hidden>
+      <p class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M8 12.5l2.6 2.6L16 9.5"></path></svg><span id="funded-title">Already funded.</span></p>
+      <p id="funded-line">What you've saved will grow past your target on its own. Your floor is $0. Anything you keep adding is extra safety or dream money.</p>
+    </div>
+
+    <div class="state below" id="state-below" hidden>
+      <p class="big">Your floor is <span id="gap">$0</span><small>/month</small> away.</p>
+    </div>
+
+    <p class="runway" id="runway" hidden>Short runway. This close to retirement, a session with a fee-only fiduciary advisor is worth it.</p>
+
+    <div class="grow" id="grow" hidden>
+      <h3>What your money grows into</h3>
+      <div class="chips" role="group" aria-label="Which monthly amount to project">
+        <button class="chip" type="button" id="chip-now" aria-pressed="true">At what I'm putting in now</button>
+        <button class="chip" type="button" id="chip-floor" aria-pressed="false">At my floor</button>
+      </div>
+      <p class="grow-head">By age <span id="g-age">67</span>, about <b id="g-total">$0</b></p>
+      <p class="grow-sub" id="g-sub"></p>
+      <div class="legend">
+        <div class="k"><span><i style="background: var(--s1)"></i>Starting amount</span><b id="g-start">$0</b></div>
+        <div class="k"><span><i style="background: var(--s2)"></i>Contributions</span><b id="g-contrib">$0</b></div>
+        <div class="k"><span><i style="background: var(--s3)"></i>Growth</span><b id="g-growth">$0</b></div>
+      </div>
+      <div class="chart-wrap" id="chart-wrap"><svg id="chart" role="img" aria-label="Projected balance by age, split into starting amount, contributions and growth"></svg><div class="tip" id="tip" hidden></div></div>
+    </div>
+
+    <p class="assume" id="assume">Fixed assumptions: 6% real return (assumes about 8% average market growth minus inflation, so every number stays in today's dollars). Target of 25x your yearly spending (the level where growth outruns what you take out).</p>
+  </section>
+</main>
+
+<footer class="disclaimer"><p id="disclaimer">Illustrative, based on long-run US market history. Not a prediction and not financial advice. Your real plan depends on your situation. Revisit this number at your Annual Money Date.</p></footer>
+
+<script src="config.js?v=1"></script>
+<script src="app.js?v=1"></script>
+</body>
+</html>
